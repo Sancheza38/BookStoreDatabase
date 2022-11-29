@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using BookStoreApp.Models;
 using Microsoft.Identity.Client;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace BookStoreApp.Data
 {
-    public class StoreContext : DbContext
+    public class StoreContext : IdentityDbContext
     {
         public StoreContext (DbContextOptions<StoreContext> options)
             : base(options)
@@ -25,6 +26,7 @@ namespace BookStoreApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Book>().ToTable("Book");
             modelBuilder.Entity<Customer>().ToTable("Customer");
             modelBuilder.Entity<AuthorOfBooks>().ToTable("AuthorOfBooks");
