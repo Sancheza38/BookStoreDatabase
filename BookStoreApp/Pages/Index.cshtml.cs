@@ -14,7 +14,7 @@ namespace BookStoreApp.Pages
 
         public void OnGet()
         {
-
+            
         }
     }
 }

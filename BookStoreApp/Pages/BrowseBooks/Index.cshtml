@@ -1,0 +1,84 @@
+﻿@page
+@model BookStoreApp.Pages.BrowseBooks.IndexModel
+@{
+    ViewData["Title"] = "Browse";
+}
+
+<h1>Browse</h1>
+
+<h4>Books</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BooksParam.ISBN" class="control-label"></label>
+                <input asp-for="BooksParam.ISBN" class="form-control" />
+                <span asp-validation-for="BooksParam.ISBN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BooksParam.Title" class="control-label"></label>
+                <input asp-for="BooksParam.Title" class="form-control" />
+                <span asp-validation-for="BooksParam.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BooksParam.PublicationDate" class="control-label"></label>
+                <input asp-for="BooksParam.PublicationDate" class="form-control" />
+                <span asp-validation-for="BooksParam.PublicationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BooksParam.Price" class="control-label"></label>
+                <input asp-for="BooksParam.Price" class="form-control" />
+                <span asp-validation-for="BooksParam.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BooksParam.UserReview" class="control-label"></label>
+                <input asp-for="BooksParam.UserReview" class="form-control" />
+                <span asp-validation-for="BooksParam.UserReview" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+</div>
+
+@if (Model.BooksFound.Count > 0)
+{
+
+    Console.WriteLine("Case 1: -------Display Books INFO-----------");
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Publication Date</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.BooksFound)
+            {
+                <tr>
+                    <td>@item.ISBN</td>
+                    <td>@item.Title</td>
+                    <td>@item.PublicationDate</td>
+                    <td>@item.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    Model.BooksFound = new List<Models.Book>();
+}
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
