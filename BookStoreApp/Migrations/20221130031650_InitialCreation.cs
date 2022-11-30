@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BookStoreApp.Migrations
 {
     /// <inheritdoc />
-    public partial class AddAuthentication : Migration
+    public partial class InitialCreation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -94,15 +94,18 @@ namespace BookStoreApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomerContactDetails",
+                name: "Customer",
                 columns: table => new
                 {
-                    ContactID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
+                    CustomerID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Fname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Lname = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CustomerContactDetails", x => x.ContactID);
+                    table.PrimaryKey("PK_Customer", x => x.CustomerID);
                 });
 
             migrationBuilder.CreateTable(
@@ -290,77 +293,40 @@ namespace BookStoreApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customer",
+                name: "CustomerContactDetails",
                 columns: table => new
                 {
-                    CustomerID = table.Column<int>(type: "int", nullable: false)
+                    ContactID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerContactDetails", x => x.ContactID);
+                    table.ForeignKey(
+                        name: "FK_CustomerContactDetails_Customer_ContactID",
+                        column: x => x.ContactID,
+                        principalTable: "Customer",
+                        principalColumn: "CustomerID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    OrderID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ContactID = table.Column<int>(type: "int", nullable: false),
-                    Fname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Lname = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    OrderValue = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
+                    OrderDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customer", x => x.CustomerID);
+                    table.PrimaryKey("PK_Order", x => x.OrderID);
                     table.ForeignKey(
-                        name: "FK_Customer_CustomerContactDetails_ContactID",
-                        column: x => x.ContactID,
-                        principalTable: "CustomerContactDetails",
-                        principalColumn: "ContactID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CustomerAddressDetails",
-                columns: table => new
-                {
-                    ContactID = table.Column<int>(type: "int", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerAddressDetails", x => new { x.ContactID, x.Address });
-                    table.ForeignKey(
-                        name: "FK_CustomerAddressDetails_CustomerContactDetails_ContactID",
-                        column: x => x.ContactID,
-                        principalTable: "CustomerContactDetails",
-                        principalColumn: "ContactID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CustomerEmailDetails",
-                columns: table => new
-                {
-                    ContactID = table.Column<int>(type: "int", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerEmailDetails", x => new { x.ContactID, x.Email });
-                    table.ForeignKey(
-                        name: "FK_CustomerEmailDetails_CustomerContactDetails_ContactID",
-                        column: x => x.ContactID,
-                        principalTable: "CustomerContactDetails",
-                        principalColumn: "ContactID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CustomerPhoneDetails",
-                columns: table => new
-                {
-                    ContactID = table.Column<int>(type: "int", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerPhoneDetails", x => new { x.ContactID, x.Phone });
-                    table.ForeignKey(
-                        name: "FK_CustomerPhoneDetails_CustomerContactDetails_ContactID",
-                        column: x => x.ContactID,
-                        principalTable: "CustomerContactDetails",
-                        principalColumn: "ContactID",
+                        name: "FK_Order_Customer_CustomerID",
+                        column: x => x.CustomerID,
+                        principalTable: "Customer",
+                        principalColumn: "CustomerID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -466,23 +432,56 @@ namespace BookStoreApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order",
+                name: "CustomerAddressDetails",
                 columns: table => new
                 {
-                    OrderID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderValue = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false),
-                    OrderDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CustomerID = table.Column<int>(type: "int", nullable: false)
+                    ContactID = table.Column<int>(type: "int", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order", x => x.OrderID);
+                    table.PrimaryKey("PK_CustomerAddressDetails", x => new { x.ContactID, x.Address });
                     table.ForeignKey(
-                        name: "FK_Order_Customer_CustomerID",
-                        column: x => x.CustomerID,
-                        principalTable: "Customer",
-                        principalColumn: "CustomerID",
+                        name: "FK_CustomerAddressDetails_CustomerContactDetails_ContactID",
+                        column: x => x.ContactID,
+                        principalTable: "CustomerContactDetails",
+                        principalColumn: "ContactID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CustomerEmailDetails",
+                columns: table => new
+                {
+                    ContactID = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerEmailDetails", x => new { x.ContactID, x.Email });
+                    table.ForeignKey(
+                        name: "FK_CustomerEmailDetails_CustomerContactDetails_ContactID",
+                        column: x => x.ContactID,
+                        principalTable: "CustomerContactDetails",
+                        principalColumn: "ContactID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CustomerPhoneDetails",
+                columns: table => new
+                {
+                    ContactID = table.Column<int>(type: "int", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerPhoneDetails", x => new { x.ContactID, x.Phone });
+                    table.ForeignKey(
+                        name: "FK_CustomerPhoneDetails_CustomerContactDetails_ContactID",
+                        column: x => x.ContactID,
+                        principalTable: "CustomerContactDetails",
+                        principalColumn: "ContactID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -556,11 +555,6 @@ namespace BookStoreApp.Migrations
                 name: "IX_Assigned_ISBN",
                 table: "Assigned",
                 column: "ISBN");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Customer_ContactID",
-                table: "Customer",
-                column: "ContactID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_CustomerID",
@@ -657,6 +651,9 @@ namespace BookStoreApp.Migrations
                 name: "AuthorContactDetails");
 
             migrationBuilder.DropTable(
+                name: "CustomerContactDetails");
+
+            migrationBuilder.DropTable(
                 name: "Order");
 
             migrationBuilder.DropTable(
@@ -670,9 +667,6 @@ namespace BookStoreApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Customer");
-
-            migrationBuilder.DropTable(
-                name: "CustomerContactDetails");
         }
     }
 }

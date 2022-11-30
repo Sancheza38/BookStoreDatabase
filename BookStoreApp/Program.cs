@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using BookStoreApp.Data;
 using Microsoft.AspNetCore.Identity;
 using BookStoreApp;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
