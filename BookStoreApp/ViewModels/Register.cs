@@ -5,8 +5,14 @@ namespace BookStoreApp.ViewModels
     public class Register
     {
         [Required]
-        [DataType(DataType.Text)]
-        public string Username { get; set; }
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+        [Required]
+        public string Fname { get; set; }
+
+        [Required]
+        public string Lname { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

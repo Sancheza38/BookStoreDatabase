@@ -1,6 +1,6 @@
 ﻿@page
 @*@model BookStoreApp.Pages.RegisterModel*@
-@model BookStoreApp.Pages.Customers.CreateModel
+@model BookStoreApp.Pages.RegisterModel
 @{
 }
 
@@ -13,9 +13,19 @@
                 <div asp-validation-summary="All" class="text-danger">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" asp-for="">UserName</label>
-                    <input type="text" asp-for="Model.Username" class="form-control" />
-                    <span asp-validation-for="Model.Username" class="text-danger"></span>
+                    <label class="form-label" asp-for="Model.Email">Email</label>
+                    <input type="text" asp-for="Model.Email" class="form-control" />
+                    <span asp-validation-for="Model.Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Model.Fname">First Name</label>
+                    <input type="text" asp-for="Model.Fname" class="form-control" />
+                    <span asp-validation-for="Model.Fname" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Model.Lname">Last Name</label>
+                    <input type="text" asp-for="Model.Lname" class="form-control" />
+                    <span asp-validation-for="Model.Lname" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" asp-for="Model.Password">Password</label>
@@ -32,5 +42,5 @@
                 </div>
             </form>
         </div>
-    </div>"
+    </div>
 </div>
