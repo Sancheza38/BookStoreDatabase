@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using BookStoreApp.Data;
 using BookStoreApp.Models;
 
-namespace BookStoreApp.Pages.Books
+namespace BookStoreApp.Pages.Shop
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace BookStoreApp.Pages.Books
         }
 
         [BindProperty]
-        public Models.Book Books { get; set; } = default!;
+        public Book Book { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(long? id)
         {
@@ -30,14 +30,12 @@ namespace BookStoreApp.Pages.Books
                 return NotFound();
             }
 
-            //var books =  await _context.Books.FirstOrDefaultAsync(m => m.ISBN == id);
-            var books = await _context.Books
-                .FirstOrDefaultAsync(m => m.ISBN == id);
-            if (books == null)
+            var book =  await _context.Books.FirstOrDefaultAsync(m => m.ISBN == id);
+            if (book == null)
             {
                 return NotFound();
             }
-            Books = books;
+            Book = book;
             return Page();
         }
 
@@ -50,7 +48,7 @@ namespace BookStoreApp.Pages.Books
                 return Page();
             }
 
-            _context.Attach(Books).State = EntityState.Modified;
+            _context.Attach(Book).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +56,7 @@ namespace BookStoreApp.Pages.Books
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BooksExists(Books.ISBN))
+                if (!BookExists(Book.ISBN))
                 {
                     return NotFound();
                 }
@@ -71,7 +69,7 @@ namespace BookStoreApp.Pages.Books
             return RedirectToPage("./Index");
         }
 
-        private bool BooksExists(long id)
+        private bool BookExists(long id)
         {
           return _context.Books.Any(e => e.ISBN == id);
         }

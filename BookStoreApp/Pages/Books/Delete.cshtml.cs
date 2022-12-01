@@ -29,7 +29,12 @@ namespace BookStoreApp.Pages.Books
                 return NotFound();
             }
 
-            var books = await _context.Books.FirstOrDefaultAsync(m => m.ISBN == id);
+            //var books = await _context.Books.FirstOrDefaultAsync(m => m.ISBN == id);
+            var books = await _context.Books
+                .Include(s => s.Writes)
+                .ThenInclude(e => e.AuthorOfBooks)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ISBN == id);
 
             if (books == null)
             {
