@@ -14,15 +14,17 @@ namespace BookStoreApp.Pages
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly StoreContext _db;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         [BindProperty]
         public Register Model { get; set; }
 
-        public RegisterModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, StoreContext db)
+        public RegisterModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, StoreContext db)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             _db = db;
+            _roleManager = roleManager;
         }
 
         public void OnGet()
@@ -52,6 +54,11 @@ namespace BookStoreApp.Pages
                 var result = await userManager.CreateAsync(user, Model.Password);
                 if (result.Succeeded)
                 {
+                    var defaultrole = _roleManager.FindByNameAsync("CustomerRole").Result;
+                    if (defaultrole != null)
+                    {
+                        IdentityResult roleresult = await userManager.AddToRoleAsync(user, "CustomerRole");
+                    }    
                     await signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToPage("Index");
                 }
