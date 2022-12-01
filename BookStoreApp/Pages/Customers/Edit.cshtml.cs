@@ -25,6 +25,7 @@ namespace BookStoreApp.Pages.Customers
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+           
             if (id == null || _context.Customers == null)
             {
                 return NotFound();
@@ -44,12 +45,16 @@ namespace BookStoreApp.Pages.Customers
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            Console.WriteLine("======================yooooooooooooooooooooooooooo");
+            Console.WriteLine("Customer ID : =========" + Customer.CustomerID);
             if (!ModelState.IsValid)
             {
+                Console.WriteLine("Im out of here");
                 return Page();
             }
 
             _context.Attach(Customer).State = EntityState.Modified;
+       
 
             try
             {

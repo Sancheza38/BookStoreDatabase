@@ -22,7 +22,7 @@ namespace BookStoreApp.Pages.Books
         [BindProperty]
       public Models.Book Books { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(long? id)
         {
             if (id == null || _context.Books == null)
             {
@@ -47,7 +47,7 @@ namespace BookStoreApp.Pages.Books
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(long? id)
         {
             if (id == null || _context.Books == null)
             {
