@@ -6,7 +6,6 @@ namespace BookStoreApp.Models
     [PrimaryKey(nameof(ID))]
     public class Supplier
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
         public string Fname { get; set; }
         public string Lname { get; set; }
