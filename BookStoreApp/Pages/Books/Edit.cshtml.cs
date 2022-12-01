@@ -25,14 +25,13 @@ namespace BookStoreApp.Pages.Books
 
         public async Task<IActionResult> OnGetAsync(long? id)
         {
-            if (id == null || _context.Books == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            //var books =  await _context.Books.FirstOrDefaultAsync(m => m.ISBN == id);
-            var books = await _context.Books
-                .FirstOrDefaultAsync(m => m.ISBN == id);
+            var books = await _context.Books.FirstOrDefaultAsync(m => m.ISBN == id);
+                
             if (books == null)
             {
                 return NotFound();
@@ -40,40 +39,25 @@ namespace BookStoreApp.Pages.Books
             Books = books;
             return Page();
         }
-
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(long id)
         {
-            if (!ModelState.IsValid)
+            var bookToUpdate = await _context.Books.FindAsync(id);
+
+            if (bookToUpdate == null)
             {
-                return Page();
+                return NotFound();
             }
 
-            _context.Attach(Books).State = EntityState.Modified;
-
-            try
+            if (await TryUpdateModelAsync<Book>(
+                bookToUpdate,
+                "books",
+                s => s.Title, s => s.Price, s => s.UserReview, s => s.PublicationDate))
             {
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BooksExists(Books.ISBN))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
-        }
-
-        private bool BooksExists(long id)
-        {
-          return _context.Books.Any(e => e.ISBN == id);
+            return Page();
         }
     }
 }
