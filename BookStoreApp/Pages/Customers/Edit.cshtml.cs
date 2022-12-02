@@ -21,58 +21,43 @@ namespace BookStoreApp.Pages.Customers
         }
 
         [BindProperty]
-        public Customer Customer { get; set; } = default!;
+        public Models.Customer Customers { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Customers == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var customer =  await _context.Customers.FirstOrDefaultAsync(m => m.CustomerID == id);
-            if (customer == null)
+            var customers =  await _context.Customers.FirstOrDefaultAsync(m => m.CustomerID == id);
+            
+            if (customers == null)
             {
                 return NotFound();
             }
-            Customer = customer;
-           ViewData["ContactID"] = new SelectList(_context.Set<CustomerContactDetails>(), "ContactID", "ContactID");
+            Customers = customers;
             return Page();
         }
-
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (!ModelState.IsValid)
+            var customerToUpdate = await _context.Customers.FindAsync(id);
+
+            if (customerToUpdate == null)
             {
-                return Page();
+                return NotFound();
             }
 
-            _context.Attach(Customer).State = EntityState.Modified;
-
-            try
+            if (await TryUpdateModelAsync<Customer>(
+                customerToUpdate,
+                "customers",
+                c => c.Fname, c => c.Lname))
             {
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CustomerExists(Customer.CustomerID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
-        }
-
-        private bool CustomerExists(int id)
-        {
-          return _context.Customers.Any(e => e.CustomerID == id);
+            return Page();
         }
     }
 }

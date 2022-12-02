@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookStoreApp.Models
 {
@@ -6,6 +7,8 @@ namespace BookStoreApp.Models
     public class CustomerContactDetails
     {
         public int ContactID { get; set; }
+        [ForeignKey("ContactID")]
+        public Customer Customer { get; set; }
 
         public List<CustomerAddressDetails> AddressDetails { get; set; }
         public List<CustomerEmailDetails> EmailDetails { get; set; }
