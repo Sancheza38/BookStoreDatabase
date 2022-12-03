@@ -23,6 +23,7 @@ namespace BookStoreApp.Data
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<BookCategory> Categories { get; set; }
         public DbSet<Write> Writes { get; set; }
+        public DbSet<SupplierRep> SupplierReps { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,8 +35,11 @@ namespace BookStoreApp.Data
             modelBuilder.Entity<Supplier>().ToTable("Supplier");
             modelBuilder.Entity<BookCategory>().ToTable("Category");
             modelBuilder.Entity<Write>().ToTable("Write");
+            modelBuilder.Entity<SupplierRep>().ToTable("SupplierRep");
 
         }
+
+        public DbSet<BookStoreApp.Models.SupplierRep> SupplierRep { get; set; }
 
 
 

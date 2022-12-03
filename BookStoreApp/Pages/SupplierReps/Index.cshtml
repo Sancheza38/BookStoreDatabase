@@ -1,0 +1,66 @@
+﻿@page
+@model BookStoreApp.Pages.SupplierReps.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierRep[0].WorkNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierRep[0].CellNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierRep[0].Fname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierRep[0].Lname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierRep[0].Organization)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierRep[0].Supplier)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.SupplierRep) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CellNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Organization)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Supplier.ID)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Email">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Email">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Email">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
