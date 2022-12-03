@@ -13,6 +13,13 @@ namespace BookStoreApp.Data
                 return;   // DB has been seeded
             }
 
+            var admin = new Customer[]
+            {
+                new Customer{Username = "admin@email.com", Fname="josh", Lname="barnes"}
+            };
+            context.Customers.AddRange(admin);
+            context.SaveChanges();
+
             var bookCategories = new BookCategory[]
             {
                 new BookCategory{CategoryCode=1,CategoryDescription="Fiction"},

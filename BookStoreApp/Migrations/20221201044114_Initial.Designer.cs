@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStoreApp.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20221201074956_updatedSupplier")]
-    partial class updatedSupplier
+    [Migration("20221201044114_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -279,10 +279,7 @@ namespace BookStoreApp.Migrations
             modelBuilder.Entity("BookStoreApp.Models.Supplier", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Fname")
                         .HasColumnType("nvarchar(max)");

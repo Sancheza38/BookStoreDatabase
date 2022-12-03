@@ -1,0 +1,50 @@
+﻿@page
+@model BookStoreApp.Pages.Cart.IndexModel
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h1>View Cart</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderItem[0].ItemPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderItem[0].Orders)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderItem[0].Books.Title)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Shop.AddCartModel.OrderId != "")
+        {
+            <a asp-page="./AddOrder" asp-route-id="@Model.orderId">Place Order</a>
+            foreach (var item in Model.OrderItem)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Orders.OrderID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Books.Title)
+                    </td>
+                    <td>
+                        <a asp-page="./Delete" asp-route-id="@item.ItemNumber">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

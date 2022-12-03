@@ -1,0 +1,58 @@
+﻿@page
+@model BookStoreApp.Pages.SupplierReps.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>SupplierRep</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SupplierRep.WorkNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SupplierRep.WorkNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SupplierRep.CellNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SupplierRep.CellNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SupplierRep.Fname)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SupplierRep.Fname)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SupplierRep.Lname)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SupplierRep.Lname)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SupplierRep.Organization)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SupplierRep.Organization)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SupplierRep.Supplier)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SupplierRep.Supplier.ID)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="SupplierRep.Email" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>
