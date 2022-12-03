@@ -72,6 +72,7 @@ namespace BookStoreApp.Data
         }
 
         public DbSet<BookStoreApp.Models.SupplierRep> SupplierRep { get; set; }
+        public DbSet<BookStoreApp.Models.OrderItem> OrderItem { get; set; }
 
 
 
