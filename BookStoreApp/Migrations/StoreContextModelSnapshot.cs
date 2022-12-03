@@ -34,7 +34,7 @@ namespace BookStoreApp.Migrations
 
                     b.HasIndex("ISBN");
 
-                    b.ToTable("Assigned");
+                    b.ToTable("Assigned", (string)null);
                 });
 
             modelBuilder.Entity("BookStoreApp.Models.AuthorAddressDetails", b =>
@@ -47,7 +47,7 @@ namespace BookStoreApp.Migrations
 
                     b.HasKey("ContactID", "Address");
 
-                    b.ToTable("AuthorAddressDetails");
+                    b.ToTable("AuthorAddressDetails", (string)null);
                 });
 
             modelBuilder.Entity("BookStoreApp.Models.AuthorContactDetails", b =>
@@ -57,7 +57,7 @@ namespace BookStoreApp.Migrations
 
                     b.HasKey("ContactID");
 
-                    b.ToTable("AuthorContactDetails");
+                    b.ToTable("AuthorContactDetails", (string)null);
                 });
 
             modelBuilder.Entity("BookStoreApp.Models.AuthorEmailDetails", b =>
@@ -70,7 +70,7 @@ namespace BookStoreApp.Migrations
 
                     b.HasKey("ContactID", "Email");
 
-                    b.ToTable("AuthorEmailDetails");
+                    b.ToTable("AuthorEmailDetails", (string)null);
                 });
 
             modelBuilder.Entity("BookStoreApp.Models.AuthorOfBooks", b =>
@@ -108,7 +108,7 @@ namespace BookStoreApp.Migrations
 
                     b.HasKey("ContactID", "Phone");
 
-                    b.ToTable("AuthorPhoneDetails");
+                    b.ToTable("AuthorPhoneDetails", (string)null);
                 });
 
             modelBuilder.Entity("BookStoreApp.Models.Book", b =>
@@ -182,7 +182,7 @@ namespace BookStoreApp.Migrations
 
                     b.HasKey("ContactID", "Address");
 
-                    b.ToTable("CustomerAddressDetails");
+                    b.ToTable("CustomerAddressDetails", (string)null);
                 });
 
             modelBuilder.Entity("BookStoreApp.Models.CustomerContactDetails", b =>
@@ -192,7 +192,7 @@ namespace BookStoreApp.Migrations
 
                     b.HasKey("ContactID");
 
-                    b.ToTable("CustomerContactDetails");
+                    b.ToTable("CustomerContactDetails", (string)null);
                 });
 
             modelBuilder.Entity("BookStoreApp.Models.CustomerEmailDetails", b =>
@@ -205,7 +205,7 @@ namespace BookStoreApp.Migrations
 
                     b.HasKey("ContactID", "Email");
 
-                    b.ToTable("CustomerEmailDetails");
+                    b.ToTable("CustomerEmailDetails", (string)null);
                 });
 
             modelBuilder.Entity("BookStoreApp.Models.CustomerPhoneDetails", b =>
@@ -218,7 +218,7 @@ namespace BookStoreApp.Migrations
 
                     b.HasKey("ContactID", "Phone");
 
-                    b.ToTable("CustomerPhoneDetails");
+                    b.ToTable("CustomerPhoneDetails", (string)null);
                 });
 
             modelBuilder.Entity("BookStoreApp.Models.Order", b =>
@@ -270,16 +270,13 @@ namespace BookStoreApp.Migrations
 
                     b.HasIndex("OrderID");
 
-                    b.ToTable("OrderItem");
+                    b.ToTable("OrderItem", (string)null);
                 });
 
             modelBuilder.Entity("BookStoreApp.Models.Supplier", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Fname")
                         .HasColumnType("nvarchar(max)");
@@ -319,7 +316,7 @@ namespace BookStoreApp.Migrations
 
                     b.HasIndex("SupplierID");
 
-                    b.ToTable("SupplierRep");
+                    b.ToTable("SupplierRep", (string)null);
                 });
 
             modelBuilder.Entity("BookStoreApp.Models.Supplies", b =>
@@ -334,7 +331,7 @@ namespace BookStoreApp.Migrations
 
                     b.HasIndex("ISBN");
 
-                    b.ToTable("Supplies");
+                    b.ToTable("Supplies", (string)null);
                 });
 
             modelBuilder.Entity("BookStoreApp.Models.Write", b =>
