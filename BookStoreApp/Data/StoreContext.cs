@@ -37,6 +37,8 @@ namespace BookStoreApp.Data
 
         }
 
+        public DbSet<BookStoreApp.Models.OrderItem> OrderItem { get; set; }
+
 
 
         //public DbSet<BookStoreApp.Models.Books> Books { get; set; } = default!;
